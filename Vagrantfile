@@ -85,13 +85,7 @@ Vagrant.configure("2") do |config|
             if node[:hostname] =~ /msql/
                 node_config.vm.provision "shell", path: "./scripts/mysql_install.sh"
                 node_config.vm.provision "shell", path: "./scripts/mysql_config.sh"
-                node_config.vm.provision "shell", path: "./scripts/mysql_config_root.sh"
-                node_config.vm.provision "shell", path: "./scripts/mysql_create_users.sh"
                 node_config.vm.provision "shell", path: "./scripts/consul_install_client.sh"
-            end
-
-            if node[:hostname] =~ /msql-01/
-                node_config.vm.provision "shell", path: "./scripts/mysql_create_db.sh"
             end
 
             if node[:hostname] =~ /msql-02/
@@ -101,10 +95,6 @@ Vagrant.configure("2") do |config|
             if node[:hostname] =~ /orc/
                 node_config.vm.provision "shell", path: "./scripts/consul_install_master.sh"
                 node_config.vm.provision "shell", path: "./scripts/orchestrator_install.sh"
-                node_config.vm.provision "shell", path: "./scripts/orchestrator_install_client.sh"
-                node_config.vm.provision "shell", path: "./scripts/orchestrator_config.sh"
-                node_config.vm.provision "shell", path: "./scripts/orchestrator_discover.sh"
-                node_config.vm.provision "shell", path: "./scripts/orchestrator_consul.sh"
                 node_config.vm.network "forwarded_port", guest: 3000, host: 3000
                 node_config.vm.network "forwarded_port", guest: 8500, host: 3500
             end
