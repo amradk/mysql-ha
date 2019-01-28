@@ -1,7 +1,6 @@
 nodes = [
   { :hostname => "msql-01", :ip => "10.0.15.41", :vt_ip => "172.31.1.101", :ram => "1024", :manifest => "mysql_ha.pp" },
   { :hostname => "msql-03", :ip => "10.0.15.43", :vt_ip => "172.31.1.103", :ram => "1024", :manifest => "mysql_ha.pp" },
-  { :hostname => "msql-02", :ip => "10.0.15.42", :vt_ip => "172.31.1.102", :ram => "1024", :manifest => "mysql_ha.pp"},
   { :hostname => "orc-01",  :ip => "10.0.15.44", :vt_ip => "172.31.1.104", :ram => "1024" },
   { :hostname => "cl-01",   :ip => "10.0.15.45", :vt_ip => "172.31.1.105", :ram => "1024" }
 ]
@@ -18,7 +17,6 @@ SCRIPT
 $add_to_hosts = <<SCRIPT
 echo "172.31.1.101 msql-01.example.com msql-01" >> /etc/hosts
 echo "172.31.1.102 msql-02.example.com msql-02" >> /etc/hosts
-echo "172.31.1.103 msql-03.example.com msql-03" >> /etc/hosts
 echo "172.31.1.104 orc-01.example.com orc-01" >> /etc/hosts
 echo "172.31.1.105 cl-01.example.com cl-01" >> /etc/hosts
 SCRIPT
