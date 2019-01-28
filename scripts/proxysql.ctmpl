@@ -81,8 +81,7 @@ mysql_servers =
 #   max_replication_lag = 10  # default 0 . If greater than 0 and replication lag passes such threshold, the server is shunned
 #	},
 	{ address="{{key "mysql/master/vgr-cx-msql-01:3306/ipv4"}}" , port=3306 , hostgroup=0 },
-	{ address="172.31.1.102" , port=3306 , hostgroup=1 },
-	{ address="172.31.1.103" , port=3306 , hostgroup=1 }
+	{ address="172.31.1.102" , port=3306 , hostgroup=1 }
 )
 
 

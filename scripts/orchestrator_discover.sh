@@ -1,3 +1,3 @@
 #!/bin/bash
 
-sudo orchestrator -c discover -i vgr-cx-msql-01
+sudo orchestrator -c discover -i msql-01

@@ -1,9 +1,9 @@
 nodes = [
-  { :hostname => "vgr-cx-msql-01", :ip => "10.0.15.41", :vt_ip => "172.31.1.101", :ram => "1024", :manifest => "mysql_ha.pp" },
-  { :hostname => "vgr-cx-msql-02", :ip => "10.0.15.42", :vt_ip => "172.31.1.102", :ram => "1024", :manifest => "mysql_ha.pp"},
-  { :hostname => "vgr-cx-msql-03", :ip => "10.0.15.43", :vt_ip => "172.31.1.103", :ram => "1024", :manifest => "mysql_ha.pp" },
-  { :hostname => "vgr-cx-orc-01",  :ip => "10.0.15.44", :vt_ip => "172.31.1.104", :ram => "1024" },
-  { :hostname => "vgr-cx-cl-01",   :ip => "10.0.15.45", :vt_ip => "172.31.1.105", :ram => "1024" }
+  { :hostname => "msql-01", :ip => "10.0.15.41", :vt_ip => "172.31.1.101", :ram => "1024", :manifest => "mysql_ha.pp" },
+  { :hostname => "msql-03", :ip => "10.0.15.43", :vt_ip => "172.31.1.103", :ram => "1024", :manifest => "mysql_ha.pp" },
+  { :hostname => "msql-02", :ip => "10.0.15.42", :vt_ip => "172.31.1.102", :ram => "1024", :manifest => "mysql_ha.pp"},
+  { :hostname => "orc-01",  :ip => "10.0.15.44", :vt_ip => "172.31.1.104", :ram => "1024" },
+  { :hostname => "cl-01",   :ip => "10.0.15.45", :vt_ip => "172.31.1.105", :ram => "1024" }
 ]
 
 $ssh_conf = <<SCRIPT
@@ -16,11 +16,11 @@ chmod 0500 /root/.ssh/config
 SCRIPT
 
 $add_to_hosts = <<SCRIPT
-echo "172.31.1.101 vgr-cx-msql-01.maxifier.com vgr-cx-msql-01" >> /etc/hosts
-echo "172.31.1.102 vgr-cx-msql-02.maxifier.com vgr-cx-msql-02" >> /etc/hosts
-echo "172.31.1.103 vgr-cx-msql-03.maxifier.com vgr-cx-msql-03" >> /etc/hosts
-echo "172.31.1.104 vgr-cx-orc-01.maxifier.com vgr-cx-orc-01" >> /etc/hosts
-echo "172.31.1.105 vgr-cx-cl-01.maxifier.com vgr-cx-cl-01" >> /etc/hosts
+echo "172.31.1.101 msql-01.example.com msql-01" >> /etc/hosts
+echo "172.31.1.102 msql-02.example.com msql-02" >> /etc/hosts
+echo "172.31.1.103 msql-03.example.com msql-03" >> /etc/hosts
+echo "172.31.1.104 orc-01.example.com orc-01" >> /etc/hosts
+echo "172.31.1.105 cl-01.example.com cl-01" >> /etc/hosts
 SCRIPT
 
 $puppet_apply = <<SCRIPT
@@ -62,12 +62,12 @@ Vagrant.configure("2") do |config|
 			# Network and hostname configuration
 			node_config.vm.network :private_network, :ip => node[:vt_ip]
 			node_config.vm.hostname = node[:hostname]
-			node_config.hostmanager.aliases = node[:hostname] + '.maxifier.com'
+			node_config.hostmanager.aliases = node[:hostname] + '.example.com'
 
 			# Synced folder
 			modulename = File.basename(File.dirname(File.expand_path(__FILE__)))
 			node_config.vm.synced_folder ".", "/config"
-
+            
 			# Provisioners 
 			node_config.vm.provision "shell", inline: $ssh_conf
             node_config.vm.provision "shell", inline: "hostnamectl --static set-hostname $1", args: node[:hostname]
@@ -96,7 +96,7 @@ Vagrant.configure("2") do |config|
                 node_config.vm.provision "shell", path: "./scripts/mysql_create_db.sh"
             end
 
-            if node[:hostname] =~ /msql-03/
+            if node[:hostname] =~ /msql-02/
                 node_config.vm.provision "shell", path: "./scripts/mysql_config_repl_gtid.sh"
             end
 
