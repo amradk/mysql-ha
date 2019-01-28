@@ -9,8 +9,8 @@ then
     mkdir -p /run/consul
     unzip ./consul_${CONSUL_VERSION}_linux_amd64.zip
     mv ./consul /opt/consul/${CONSUL_VERSION}/
-    cp /config/scripts/consul_server.json /etc/consul.json
-    cp /config/scripts/consul.service /etc/systemd/system/
+    cp /config/configs/consul_server.json /etc/consul.json
+    cp /config/configs/consul.service /etc/systemd/system/
     sed -ie "s/VER/${CONSUL_VERSION}/" /etc/systemd/system/consul.service
     systemctl daemon-reload
     systemctl start consul
