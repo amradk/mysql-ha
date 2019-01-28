@@ -1,0 +1,14 @@
+{
+   "datacenter": "vagrant",
+   "bootstrap_expect" : 1,
+   "advertise_addr": "172.31.1.104",
+   "bind_addr": "172.31.1.104",
+   "client_addr": "0.0.0.0",
+   "data_dir": "/opt/consul/1.0.7/data",
+   "log_level": "INFO",
+   "server": true,
+   "ui":true,
+   "telemetry": {
+      "statsite_address": "127.0.0.1:2180"
+   }
+}

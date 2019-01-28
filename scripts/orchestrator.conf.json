@@ -1,0 +1,34 @@
+{
+  "Debug": false,
+  "EnableSyslog": false,
+  "ListenAddress": ":3000",
+  "MySQLTopologySSLSkipVerify": true,
+  "MySQLTopologyUseMutualTLS": false,
+  "MySQLTopologyMaxPoolConnections": 3,
+  "BackendDB": "sqlite",
+  "SQLite3DataFile": "/var/lib/orchestrator/orchestrator.db",
+  "InstancePollSeconds": 5,
+  "DiscoverByShowSlaveHosts": false, 
+  "HostnameResolveMethod": "default",
+  "MySQLHostnameResolveMethod": "@@hostname",
+  "AutoPseudoGTID": true,
+  "MySQLTopologyUser": "orchestrator",
+  "UseMutualTLS": false,
+  "_comment" : "failure detection and recovery",
+  "PromotionIgnoreHostnameFilters": ["vgr-cx-msql-03"],
+  "DetachLostSlavesAfterMasterFailover": true,
+  "ApplyMySQLPromotionAfterMasterFailover": true,
+  "MasterFailoverDetachSlaveMasterHost": true,
+  "MasterFailoverLostInstancesDowntimeMinutes": 1,
+  "RecoveryPeriodBlockSeconds": 3600,
+  "RecoveryIgnoreHostnameFilters": [],
+  "RecoverMasterClusterFilters": [
+    "vgr-cx-msql"
+  ],
+  "RecoverIntermediateMasterClusterFilters": [
+    "*"
+  ],
+  "MySQLTopologyPassword": "orcpass",
+  "ConsulAddress": "127.0.0.1:8500",
+  "KVClusterMasterPrefix": "mysql/master"
+}

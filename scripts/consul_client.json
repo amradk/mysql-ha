@@ -1,0 +1,10 @@
+{
+   "datacenter": "vagrant",
+   "advertise_addr": "IP",
+   "data_dir": "/opt/consul/1.0.7/data",
+   "log_level": "INFO",
+   "retry_join": ["172.31.1.104"],
+   "telemetry": {
+      "statsite_address": "127.0.0.1:2180"
+   }
+}
